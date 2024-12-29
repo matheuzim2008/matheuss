@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do Clique Rápido</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        #game-container {
+            text-align: center;
+        }
+        #target {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+        }
+        #score {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #congratulations {
+            display: none;
+            font-size: 32px;
+            color: green;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="score">Pontos: 0</div>
+        <div id="target"></div>
+        <div id="congratulations">Amigo, você é um amigo!</div>
+    </div>
+
+    <script>
+        const target = document.getElementById('target');
+        const scoreDisplay = document.getElementById('score');
+        const congratulations = document.getElementById('congratulations');
+        let score = 0;
+
+        function moveTarget() {
+            const maxX = window.innerWidth - target.offsetWidth;
+            const maxY = window.innerHeight - target.offsetHeight;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            target.style.left = `${randomX}px`;
+            target.style.top = `${randomY}px`;
+        }
+
+        target.addEventListener('click', () => {
+            score++;
+            scoreDisplay.textContent = `Pontos: ${score}`;
+            if (score >= 20) {
+                congratulations.style.display = 'block';
+            } else {
+                moveTarget();
+            }
+        });
+
+        moveTarget();
+    </script>
+</body>
+</html>
